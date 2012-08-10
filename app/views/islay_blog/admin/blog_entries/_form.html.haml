@@ -1,0 +1,13 @@
+= resource_form(@blog_entry) do |f|
+  = content do
+    = f.fieldset(:class => 'primary') do
+      = f.input(:title)
+      = f.input(:body, :as => 'text')
+
+    = f.fieldset do
+      = f.input(:published)
+      = f.input(:author_id, :collection => @users)
+
+  = footer do
+    = save_button
+    = cancel_button(@blog_entry)

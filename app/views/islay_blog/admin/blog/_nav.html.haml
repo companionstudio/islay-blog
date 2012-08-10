@@ -1,0 +1,5 @@
+- sub_nav('Overview', path(:blog), :root => true, :class => 'overview')
+- sub_nav('Entries', path(:blog_entries), :class => 'folder')
+- sub_nav('Comments', path(:blog_comments), :class => 'folder')
+
+- control('Entry', path(:new, :blog_entry), :new)

@@ -1,0 +1,8 @@
+- sub_header('Blog Entry', @blog_entry.title)
+
+= content(:class => 'inset') do
+  %p Yep!
+
+= footer do
+  = edit_button(@blog_entry)
+  = delete_button(@blog_entry)
