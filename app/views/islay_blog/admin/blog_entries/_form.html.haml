@@ -8,18 +8,7 @@
     = f.fieldset do
       = f.input(:published)
       = f.input(:author_id, :collection => @users)
-
-      %div.field.multi-images
-        %label Assets
-        %ul(data-name="blog_entry[asset_ids][]")
-          - @blog_entry.assets.each do |asset|
-            %li{:id => "image-#{asset.id}"}
-              %label
-                = asset.name
-                = check_box_tag('blog_entry[asset_ids][]', asset.id, :boolean => true)
-              = image_tag(asset.preview.url(:thumb_medium))
-          %li.add
-            = link_to('Add Asset', '', :rel => 'add')
+      = asset_picker(f)
 
   = footer do
     = save_button
