@@ -1,0 +1,26 @@
+= content do
+  %table
+    %thead
+      %tr
+        %th.boolean Published
+        %th Title
+        %th Author
+        %th.indicator Comments
+        %th Updated At
+
+    %tbody
+      - @blog_entries.each do |entry|
+        %tr
+          %td
+            = boolean_indicator(entry.published?)
+          %td
+            = link_to(entry.title, path(entry), :class => 'title')
+          %td
+            = entry.author_name
+          %td.indicator
+            %span.indicator= entry.comments_count
+          %td.meta
+            = update_time(entry)
+
+= footer do
+  = paginate(@blog_entries, :theme => 'admin')

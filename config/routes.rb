@@ -16,6 +16,8 @@ Rails.application.routes.draw do
             put 'revoke'
           end
         end
+
+        resources :blog_tags, :path => 'tags', :only => %w(index show)
       end
     end
 

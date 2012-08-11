@@ -1,0 +1,19 @@
+- sub_header('Blog Tags')
+
+= content do
+  %table
+    %thead
+      %tr
+        %th Tag
+        %th Entries
+        %th Last Addition
+
+    %tbody
+      - @blog_tags.each do |tag|
+        %tr
+          %td
+            = link_to(tag.name, path(tag), :class => 'title')
+          %td.indicator
+            %span.indicator= tag.entries_count
+          %td.meta
+            %span.time jhh
