@@ -1,0 +1,16 @@
+%h1 Blog Entries
+
+%h2= @blog_entry.title
+
+= render_markdown(@blog_entry.body, 3)
+
+%p.byline
+  Posted on #{@blog_entry.published_at} by #{@blog_entry.author_name}
+
+%p.comment-count
+  #{@blog_entry.comments_count} comments posted
+
+- @blog_entry.comments.approved.each do |comment|
+  %h3 #{comment.name} on #{comment.created_at}
+
+  = simple_format(comment.body)

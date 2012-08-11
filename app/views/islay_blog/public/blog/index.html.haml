@@ -1,0 +1,13 @@
+%h1 Blog Entries
+
+- @blog_entries.each do |entry|
+  %h2
+    = link_to(entry.title, path(entry))
+
+  = render_markdown(entry.body, 3)
+
+  %p.byline
+    Posted on #{entry.published_at} by #{entry.author_name}
+
+  %p.comment-count
+    #{entry.comments_count} #{pluralize(entry.comments_count, 'comments')} posted

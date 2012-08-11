@@ -19,10 +19,10 @@ Rails.application.routes.draw do
       end
     end
 
-    scope :module => 'public' do
+    namespace :public, :path => '' do
       scope :path => 'blog', :controller => 'blog' do
-        get   '/',            :action => 'index',   :as => 'blog'
-        get   '/:id',         :action => 'entry',   :as => 'blog_entry'
+        get  '/(page-:page)', :action => 'index',   :as => 'blog'
+        get  '/:id',          :action => 'entry',   :as => 'blog_entry'
         post '/:id/comment',  :action => 'comment', :as => 'blog_entry_comment'
         post '/tags',         :action => 'tags',    :as => 'blog_tags'
       end

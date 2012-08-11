@@ -2,11 +2,33 @@ class BlogEntry < ActiveRecord::Base
   include Islay::Publishable
 
   belongs_to  :author,    :class_name => 'User'
-  has_many    :comments,  :class_name => 'BlogComment', :order => 'create_at DESC'
+  has_many    :comments,  :class_name => 'BlogComment', :order => 'created_at DESC'
 
   track_user_edits
   validations_from_schema
   attr_accessible :title, :body, :published, :author_id
+
+  # Creates a scope which summarises entries for display in a public listing
+  # i.e. truncated body, comment count etc.
+  #
+  # @return ActiveRecord::Relation
+  def self.public_summary
+    select(%{
+      id, published, published_at, title, updated_at, body,
+      (SELECT name FROM users WHERE id = author_id) AS author_name,
+      (SELECT COUNT(id) FROM blog_comments WHERE blog_entry_id = blog_entries.id) AS comments_count
+    })
+  end
+
+  # Creates a scope which will only return entries that are available for
+  # viewing publically.
+  #
+  # @return ActiveRecord::Relation
+  #
+  # @todo Expand this to account for future publication dates.
+  def self.active
+    where("published = true")
+  end
 
   # Creates a scope with extra calculated fields for comment count, author name
   # etc.
