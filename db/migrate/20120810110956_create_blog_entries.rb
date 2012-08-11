@@ -3,6 +3,7 @@ class CreateBlogEntries < ActiveRecord::Migration
     create_table :blog_entries do |t|
       t.integer :author_id,   :null => false, :references => :users, :on_delete => :cascade
       t.string  :title,       :null => false, :limit => 200
+      t.string  :slug,        :null => false, :limit => 200, :unique => true
       t.string  :body,        :null => false, :limit => 8000
 
       t.publishing

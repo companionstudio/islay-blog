@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'islay',         '0.0.1'
   s.add_dependency 'rdiscount',     '~> 1.6.8'
   s.add_dependency 'htmlentities',  '~> 4.3.1'
+  s.add_dependency 'friendly_id',   '~> 4.0.8'
 end
