@@ -1,5 +1,11 @@
 %h1 Blog Entries
 
+%h2 Categories
+
+%ul
+  - @blog_tags.each do |tag|
+    %li= link_to("#{tag.name} (#{tag.entries_count})", path(tag))
+
 - @blog_entries.each do |entry|
   %h2
     = link_to(entry.title, path(entry))
