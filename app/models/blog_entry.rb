@@ -10,9 +10,16 @@ class BlogEntry < ActiveRecord::Base
   has_many    :taggings,  :class_name => 'BlogTagging', :foreign_key => 'blog_entry_id'
   has_many    :tags,      :class_name => 'BlogTag', :through => :taggings
 
+  has_many    :blog_assets
+  has_many    :assets,     :through => :blog_assets, :order => 'position ASC'
+  has_many    :images,     :through => :blog_assets, :order => 'position ASC', :source => :asset, :class_name => 'ImageAsset'
+  has_many    :audio,      :through => :blog_assets, :order => 'position ASC', :source => :asset, :class_name => 'AudioAsset'
+  has_many    :videos,     :through => :blog_assets, :order => 'position ASC', :source => :asset, :class_name => 'VideoAsset'
+  has_many    :documents,  :through => :blog_assets, :order => 'position ASC', :source => :asset, :class_name => 'DocumentAsset'
+
   track_user_edits
   validations_from_schema
-  attr_accessible :title, :body, :published, :author_id
+  attr_accessible :title, :body, :published, :author_id, :asset_ids
 
   # Creates a scope which summarises entries for display in a public listing
   # i.e. truncated body, comment count etc.
