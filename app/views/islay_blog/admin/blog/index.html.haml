@@ -1,0 +1,15 @@
+= content(:class => 'inset') do
+  %h3 Tags
+
+  %ul#blog-tag-cloud
+    - @blog_tags.each do |tag|
+      %li
+        = link_to(tag.name, path(tag))
+
+  = column(6) do
+    %h3 Latest Entries
+
+  = column(6) do
+    %h3 Latest Comments
+
+
