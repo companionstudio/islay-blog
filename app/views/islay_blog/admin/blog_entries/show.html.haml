@@ -1,7 +1,36 @@
 - sub_header('Blog Entry', @blog_entry.title)
 
+%ul#summary
+  - if @blog_entry.published?
+    %li
+      %span.key Status
+      %span.indicator.ok Published
+    %li
+      %span.key Published
+      %span.value.indicator.ok.time= @blog_entry.published_at
+  - else
+    %li
+      %span.key Status
+      %span.indicator Unpublished
+  %li
+    %span.key Comments
+    %span.value.indicator.neutral= @blog_entry.comments.count
+
 = content(:class => 'inset') do
-  %p Yep!
+  = column(6) do
+    %h3 Body
+    %div.body
+      = render_markdown(@blog_entry.body, 4)
+
+    %h3 Assets (images, etc.)
+
+    %ul.assets
+      - @blog_entry.images.each do |image|
+        %li.asset-preview
+          %div.frame= image_tag(image.preview.url(:thumb_medium))
+
+  = column(6, :class => 'last') do
+    %h3 Comments
 
 = footer do
   = edit_button(@blog_entry)
