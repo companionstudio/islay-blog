@@ -1,8 +1,11 @@
 class BlogEntry < ActiveRecord::Base
   include Islay::Publishable
+  include Islay::Taggable
 
   belongs_to  :author,    :class_name => 'User'
-  has_many    :comments,  :class_name => 'BlogComment', :order => 'created_at DESC'
+  has_many    :comments,  :class_name => 'BlogComment',   :order => 'created_at DESC'
+  has_many    :taggings,  :class_name => 'BlogTagging', :foreign_key => 'blog_entry_id'
+  has_many    :tags,      :class_name => 'BlogTag', :through => :taggings
 
   track_user_edits
   validations_from_schema
