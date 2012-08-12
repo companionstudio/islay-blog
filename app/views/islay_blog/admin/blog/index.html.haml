@@ -1,7 +1,7 @@
 = content(:class => 'inset') do
   %h3 Tags
 
-  %ul#blog-tag-cloud
+  %ul#tag-cloud
     - @blog_tags.each do |tag|
       %li
         = link_to(tag.name, path(tag))
