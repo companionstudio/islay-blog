@@ -1,4 +1,8 @@
-# desc "Explaining what the task does"
-# task :islay_blog do
-#   # Task goes here
-# end
+namespace :islay_blog do
+  namespace :db do
+    desc "Loads in seed data for bootstrapping a fresh Islay app."
+    task :seed => :environment do
+
+    end
+  end
+end
