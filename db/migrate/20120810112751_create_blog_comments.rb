@@ -9,5 +9,7 @@ class CreateBlogComments < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_column(:blog_comments, :terms, :tsvector)
   end
 end

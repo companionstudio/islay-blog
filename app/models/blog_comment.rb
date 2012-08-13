@@ -1,4 +1,7 @@
 class BlogComment < ActiveRecord::Base
+  include Islay::Searchable
+  search_terms :against => {:name => 'A'}
+
   belongs_to :entry, :class_name => 'BlogEntry'
 
   attr_accessible :name, :email, :body
