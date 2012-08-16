@@ -27,7 +27,7 @@
     %ul.assets
       - @blog_entry.images.each do |image|
         %li.asset-preview
-          %div.frame= image_tag(image.preview.url(:thumb_medium))
+          %div.frame= image_tag(image.previews.url(:thumb_medium))
 
   = column(6, :class => 'last') do
     %h3 Comments
