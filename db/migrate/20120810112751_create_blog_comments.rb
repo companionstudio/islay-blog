@@ -5,7 +5,7 @@ class CreateBlogComments < ActiveRecord::Migration
       t.string  :name,          :null => false, :limit => 200
       t.string  :email,         :null => false, :limit => 200
       t.string  :body,          :null => false, :limit => 2000
-      t.boolean :approved,      :null => false, :default => false
+      t.string  :status,        :null => false, :limit => 50, :default => 'pending'
 
       t.timestamps
     end
