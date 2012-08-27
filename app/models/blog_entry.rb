@@ -86,4 +86,6 @@ class BlogEntry < ActiveRecord::Base
       order('published_at DESC')
     end
   end
+
+  check_for_extensions
 end
