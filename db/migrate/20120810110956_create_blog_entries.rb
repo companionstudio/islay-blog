@@ -5,6 +5,7 @@ class CreateBlogEntries < ActiveRecord::Migration
       t.string  :title,       :null => false, :limit => 200
       t.string  :slug,        :null => false, :limit => 200, :unique => true
       t.string  :body,        :null => false, :limit => 8000
+      t.hstore  :metadata,    :null => true
 
       t.publishing
       t.user_tracking

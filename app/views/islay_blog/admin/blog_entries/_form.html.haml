@@ -5,6 +5,11 @@
       = f.input(:body, :as => 'text')
       = f.input(:tag_summary, :label => 'Tags')
 
+    - f.metadata do |attrs|
+      = f.fieldset('Attributes', :class => 'attributes') do
+        - attrs.each do |name, opts|
+          = f.metadata_input(name, opts)
+
     = f.fieldset do
       = f.input(:published)
       = f.input(:author_id, :collection => @users)

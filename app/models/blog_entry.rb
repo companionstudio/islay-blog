@@ -2,6 +2,7 @@ class BlogEntry < ActiveRecord::Base
   include Islay::Publishable
   include Islay::Taggable
   include Islay::Searchable
+  include IslayShop::MetaData
 
   search_terms :map => {:name => 'title'}, :against => {:title => 'A', :body => 'B'}
 
