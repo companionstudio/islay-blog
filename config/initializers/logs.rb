@@ -3,7 +3,7 @@ ActivityLog.register(:blog_entry, BlogEntryLogDecorator, %{
     'blog_entry' AS type,
     updated_at AS created_at,
     (SELECT name FROM users WHERE id = updater_id) AS user_name,
-    'updated' AS event,
+    update_status(created_at, updated_at) AS event,
     title AS name,
     id,
     NULL::integer AS parent_id
