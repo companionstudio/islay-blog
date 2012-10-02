@@ -5,6 +5,7 @@
         %th.boolean Published
         %th Title
         %th Author
+        %th Tags
         %th.indicator Comments
         %th Updated At
 
@@ -17,8 +18,10 @@
             = link_to(entry.title, path(entry), :class => 'title')
           %td
             = entry.author_name
+          %td
+            = entry.tags_summary
           %td.indicator
-            %span.indicator= entry.comments_count
+            %span.indicator.neutral= entry.comments_count
           %td.meta
             = update_time(entry)
 
