@@ -9,6 +9,27 @@
   = column(6) do
     %h3 Latest Entries
 
+    - if @blog_entries.empty?
+      %p No Entries
+    - else
+      %ul.latest-entries
+        - @blog_entries.each do |entry|
+          %li
+            %a{href: path(entry), class: "published-#{entry.published}"}
+              %h4
+                %strong= entry.title
+                By #{entry.author_name} / Updated
+                %span.time= entry.updated_at
+                by #{entry.updater_name}
+
+            %p.tags
+              - entry.tags_summary.split(', ').each do |tag|
+                %span.tag= tag
+
+            %p.comments
+              %span.indicator.neutral= entry.comments_count
+              %span.key Comments
+
   = column(6) do
     %h3 Latest Comments
 

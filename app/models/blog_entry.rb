@@ -55,10 +55,16 @@ class BlogEntry < ActiveRecord::Base
   # @return ActiveRecord::Relation
   def self.summary
     select(%{
-      blog_entries.id, blog_entries.slug, blog_entries.published, blog_entries.title, blog_entries.updated_at,
+      blog_entries.id, blog_entries.slug, blog_entries.published, blog_entries.title, blog_entries.created_at, blog_entries.updated_at,
       (SELECT name FROM users WHERE id = author_id) AS author_name,
       (SELECT name FROM users WHERE id = updater_id) AS updater_name,
-      (SELECT COUNT(id) FROM blog_comments WHERE blog_entry_id = blog_entries.id) AS comments_count
+      (SELECT COUNT(id) FROM blog_comments WHERE blog_entry_id = blog_entries.id) AS comments_count,
+      (
+        SELECT ARRAY_TO_STRING(ARRAY_AGG(bts.name), ', ')
+        FROM blog_taggings
+        JOIN blog_tags AS bts ON bts.id = blog_tag_id AND blog_entry_id = blog_entries.id
+        GROUP BY blog_entry_id
+      ) AS tags_summary
     })
   end
 

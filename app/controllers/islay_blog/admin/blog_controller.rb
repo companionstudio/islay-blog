@@ -3,10 +3,7 @@ class IslayBlog::Admin::BlogController < IslayBlog::Admin::ApplicationController
   nav 'nav'
 
   def index
-    # Pending entries
-    # Comments
-    # Tag cloud
-
-    @blog_tags = BlogTag.order('name')
+    @blog_entries = BlogEntry.summary.order('updated_at DESC').limit(8)
+    @blog_tags    = BlogTag.order('name')
   end
 end
