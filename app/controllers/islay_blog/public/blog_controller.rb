@@ -1,6 +1,6 @@
 class IslayBlog::Public::BlogController < IslayBlog::Public::ApplicationController
   def index
-    @blog_entries = BlogEntry.public_summary.active.page(params[:page]).per(5)
+    @blog_entries = BlogEntry.public_summary.active.page(params[:page]).per(5).order('published_at DESC')
     @blog_tags = BlogTag.public_listing
   end
 
