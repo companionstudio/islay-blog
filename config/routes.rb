@@ -25,8 +25,8 @@ Rails.application.routes.draw do
       scope :path => 'blog', :controller => 'blog' do
         get  '/(page-:page)', :action => 'index',   :as => 'blog'
         get  '/:id',          :action => 'entry',   :as => 'blog_entry'
-        post '/:id/comment',  :action => 'comment', :as => 'blog_entry_comment'
-        get  '/tag/:id',      :action => 'tag',      :as => 'blog_tag'
+        post '/:id/comment',  :action => 'comment', :as => 'blog_comment'
+        get  '/tag/:id',      :action => 'tag',     :as => 'blog_tag'
       end
     end
   end

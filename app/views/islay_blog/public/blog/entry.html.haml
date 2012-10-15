@@ -10,7 +10,26 @@
 %p.comment-count
   #{@blog_entry.comments_count} comments posted
 
-- @blog_entry.comments.approved.each do |comment|
-  %h3 #{comment.name} on #{comment.created_at}
+- if @blog_entry.comments[0]
+  %h3 Comments
+  - @blog_entry.comments.each do |comment|
+    %h4 #{comment.name} on #{comment.created_at}
 
-  = simple_format(comment.body)
+    = simple_format(sanitize(comment.body))
+
+%h3#add-comment Add a Comment
+= form_for(@comment, :url => path(:blog_comment, :id => @blog_entry), :builder => Islay::FormBuilder) do |f|
+  - unless @comment.errors.empty?
+    %div.errors
+      %h4 We could not add your comment
+      %p
+        Please make sure you've filled out all the fields below correctly.
+
+  = f.input(:name)
+  = f.input(:email)
+  = f.input(:body, :as => :text, :label => 'Comment')
+
+  = f.input(:humanizer_answer, :label => @comment.humanizer_question)
+  = f.hidden_field :humanizer_question_id
+
+  %button Add Comment
