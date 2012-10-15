@@ -13,6 +13,7 @@ class IslayBlog::Public::BlogController < IslayBlog::Public::ApplicationControll
     @blog_entry = BlogEntry.public_summary.active.find(params[:id])
     @comment    = BlogComment.new(:blog_entry_id => @blog_entry.id)
     if @comment.update_attributes(params[:blog_comment])
+      flash[:comment_added] = "Your comment has been added"
       redirect_to path(@blog_entry)
     else
       render :entry
