@@ -10,3 +10,16 @@ ActivityLog.register(:blog_entry, BlogEntryLogDecorator, %{
   FROM blog_entries
   ORDER BY updated_at
 })
+
+ActivityLog.register(:blog_comment, BlogCommentLogDecorator, %{
+  SELECT
+    'blog_comment' AS type,
+    updated_at AS created_at,
+    name AS user_name,
+    'added' AS event,
+    'Comment on ''' || (SELECT title FROM blog_entries WHERE id = blog_entry_id) || '''' AS name,
+    id,
+    blog_entry_id AS parent_id
+  FROM blog_comments
+  ORDER BY updated_at
+})
