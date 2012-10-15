@@ -32,5 +32,20 @@
 
   = column(6) do
     %h3 Latest Comments
+    - if @comments.empty?
+      %p No Comments
+    - else
+      %ul.latest-entries
+        - @comments.each do |comment|
+          %li
+            %a{href: path(:blog_entry, :id => comment.blog_entry_id)}
+              %h4
+                %strong
+                  = comment.name
+                  on
+                  = comment.blog_entry_title
+                Added on
+                %span.time= comment.updated_at
+
 
 

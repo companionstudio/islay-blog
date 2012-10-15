@@ -17,11 +17,10 @@ class BlogComment < ActiveRecord::Base
   # Validate email format
   validates :email, :format   => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => 'Please check your email address is correct'}
 
-  # Creates a scope that will only return comments that have been flagged as
-  # as approved.
-  #
-  # @return ActiveRecord::Relation
-  def self.approved
-    where(:approved => true)
+  def self.summary
+    select(%{
+      blog_comments.*,
+      (SELECT title FROM blog_entries WHERE id = blog_entry_id) AS blog_entry_title
+    })
   end
 end

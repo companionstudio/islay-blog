@@ -32,6 +32,17 @@
   = column(6, :class => 'last') do
     %h3 Comments
 
+    %ul.all-comments
+      - @blog_entry.comments.each do |comment|
+        %li
+          %h4
+            = comment.name
+            \/
+            = comment.email
+          = simple_format(sanitize(comment.body))
+          Added on
+          %span.time= comment.updated_at
+
 = footer do
   = edit_button(@blog_entry)
   = delete_button(@blog_entry)
