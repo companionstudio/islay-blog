@@ -2,9 +2,6 @@
   +icon-bullhorn
 
 #header
-  .comments
-    +icon-comments
-
   .documents
     +icon-file
 
@@ -99,18 +96,28 @@
     li
       margin-right: 1em
 
-  .all-comments
+  .comments
     h4
       color: black !important
       font-weight: bold
       font-size: 1.2em
       padding-bottom: 0.3em
+      float: left
+
+    p
+      width: 100%
+      float: left
 
     li
       border-bottom: 0.1em dashed $light-grey
       padding-bottom: 1em
       width: 100%
       float: left
+
+    .button
+      padding-top: 0.3em
+      padding-bottom: 0.3em
+      float: right
 
 
 #islay-admin-search .search-results

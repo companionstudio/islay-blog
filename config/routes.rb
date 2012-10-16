@@ -9,12 +9,8 @@ Rails.application.routes.draw do
           get 'delete', :on => :member
         end
 
-        resources :blog_comments, :path => 'comments', :only => %w(index show destroy) do
-          member do
-            get 'delete'
-            put 'approve'
-            put 'revoke'
-          end
+        resources :blog_comments, :path => 'comments', :only => %w(destroy) do
+          get 'delete', :on => :member
         end
 
         resources :blog_tags, :path => 'tags', :only => %w(index show)
