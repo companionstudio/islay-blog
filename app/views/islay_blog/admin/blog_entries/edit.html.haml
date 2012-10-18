@@ -1,2 +1,3 @@
-- sub_header('Edit Blog Entry', @blog_entry.title)
+- sub_header('Blog', path(:blog))
+- prefixed_sub_header('Edit entry', @blog_entry.title)
 = render :partial => 'form'

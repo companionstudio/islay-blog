@@ -1,20 +1,24 @@
-- sub_header('Blog Entry', @blog_entry.title)
+- sub_header('Blog Entries', path(:blog))
+- sub_header(@blog_entry.title)
 
-%ul#summary
-  - if @blog_entry.published?
+- sub_header_status do
+  %ul#summary
+    - if @blog_entry.published?
+      %li.publish-state
+        %span.key Status
+        %span.indicator.ok Published
+      %li.publish-date
+        %span.key on
+        %span.value.indicator.ok.time= @blog_entry.published_at
+    - else
+      %li
+        %span.key Status
+        %span.indicator Unpublished
     %li
-      %span.key Status
-      %span.indicator.ok Published
-    %li
-      %span.key Published
-      %span.value.indicator.ok.time= @blog_entry.published_at
-  - else
-    %li
-      %span.key Status
-      %span.indicator Unpublished
-  %li
-    %span.key Comments
-    %span.value.indicator.neutral= @blog_entry.comments.count
+      - if @blog_entry.comments.count == 0
+        %span.value.indicator.neutral No comments
+      - else
+        %span.value.indicator.neutral= "#{@blog_entry.comments.count} Comment#{@blog_entry.comments.count > 1 ? 's' : ''}"
 
 = content(:class => 'inset') do
   = column(6) do

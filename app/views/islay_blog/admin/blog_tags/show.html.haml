@@ -1,3 +1,4 @@
-- sub_header('Blog Tag', @blog_tag.name)
+- sub_header('Blog', path(:blog))
+- prefixed_sub_header('Posts tagged with', @blog_tag.name)
 
 = render :partial => 'islay_blog/admin/blog_entries/table'
