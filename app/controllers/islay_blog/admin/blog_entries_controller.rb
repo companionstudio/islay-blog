@@ -11,5 +11,6 @@ class IslayBlog::Admin::BlogEntriesController < IslayBlog::Admin::ApplicationCon
 
   def dependencies
     @users = User.order('name')
+    @assets = Asset.order('name')
   end
 end
