@@ -1,5 +1,8 @@
 - sub_header('Blog', path(:blog))
-- sub_header("Posts tagged with #{tag}")
+- if params[:filter]
+  - sub_header("#{params[:filter].humanize} entries")
+- else
+  - sub_header("All entries")
 
 - filter_nav(:blog_entries, 'All')
 - filter_nav(:blog_entries, 'Published', 'published')
