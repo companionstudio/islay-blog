@@ -23,6 +23,7 @@
                 by #{entry.updater_name}
 
             %p.tags
+            - unless entry.tags_summary.blank?
               - entry.tags_summary.split(', ').each do |tag|
                 %span.tag= tag
 
