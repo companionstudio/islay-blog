@@ -24,7 +24,7 @@
   = column(6) do
     %h3 Body
     %div.body
-      = render_markdown(@blog_entry.body, 4)
+      = render_markdown(@blog_entry.body, 4, false)
 
     %h3 Assets (images, etc.)
 
@@ -35,19 +35,21 @@
 
   = column(6, :class => 'last') do
     %h3 Comments
-
-    %ul.comments
-      - @blog_entry.comments.each do |comment|
-        %li
-          %h4
-            = comment.name
-            \/
-            = comment.email
-          = link_to('Delete', path(:delete, comment), :class => 'button delete')
-          = simple_format(sanitize(comment.body))
-          %p
-            Added on
-            %span.time= comment.updated_at
+    - if @blog_entry.comments.blank?
+      %p.note No comments yet
+    - else
+      %ul.comments
+        - @blog_entry.comments.each do |comment|
+          %li
+            %h4
+              = comment.name
+              \/
+              = comment.email
+            = link_to('Delete', path(:delete, comment), :class => 'button delete')
+            = simple_format(sanitize(comment.body))
+            %p
+              Added on
+              %span.time= comment.updated_at
 
 = footer do
   = edit_button(@blog_entry)
