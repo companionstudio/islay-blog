@@ -1,10 +1,7 @@
 class BlogEntry < ActiveRecord::Base
   include Islay::Publishable
   include Islay::Taggable
-  include Islay::Searchable
   include Islay::MetaData
-
-  search_terms :map => {:name => 'title'}, :against => {:title => 'A', :body => 'B'}
 
   extend FriendlyId
   friendly_id :title, :use => :slugged

@@ -1,7 +1,4 @@
 class BlogComment < ActiveRecord::Base
-  include Islay::Searchable
-  search_terms :against => {:name => 'A'}
-
   include Humanizer
   require_human_on :create
 
