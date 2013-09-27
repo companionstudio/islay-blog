@@ -26,4 +26,5 @@
             = update_time(entry)
 
 = footer do
+  = new_button('Entry', :blog_entry)
   = paginate(@blog_entries, :theme => 'admin')
