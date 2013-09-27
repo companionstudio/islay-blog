@@ -1,4 +1,6 @@
-- sub_header('Blog', path(:blog))
+- breadcrumb('Blog', :blog)
+- breadcrumb('Entries', :blog_entries)
+
 - if params[:filter]
   - sub_header("#{params[:filter].humanize} entries")
 - else
@@ -12,3 +14,6 @@
 - sort_nav(:blog_entries, 'Updated At', 'updated_at')
 
 = render :partial => 'table'
+
+= footer do
+  = new_button('Entry', :blog_entry)

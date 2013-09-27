@@ -1,3 +1,5 @@
-- sub_header('Blog', path(:blog))
-- prefixed_sub_header('Edit entry', @blog_entry.title)
+- breadcrumb('Blog', :blog)
+- breadcrumb('Entries', :blog_entries)
+- breadcrumb(@blog_entry.title, @blog_entry)
+- breadcrumb('Edit')
 = render :partial => 'form'

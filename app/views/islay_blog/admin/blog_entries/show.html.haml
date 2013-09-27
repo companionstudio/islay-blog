@@ -1,24 +1,19 @@
-- sub_header('Blog Entries', path(:blog))
-- sub_header(@blog_entry.title)
+- breadcrumb('Blog', :blog)
+- breadcrumb('Entries', :blog_entries)
+- breadcrumb(@blog_entry.title)
 
-- sub_header_status do
-  %ul#summary
-    - if @blog_entry.published?
-      %li.publish-state
-        %span.key Status
-        %span.indicator.ok Published
-      %li.publish-date
-        %span.key on
-        %span.value.indicator.ok.time= @blog_entry.published_at
-    - else
-      %li
-        %span.key Status
-        %span.indicator Unpublished
-    %li
-      - if @blog_entry.comments.count == 0
-        %span.value.indicator.neutral No comments
-      - else
-        %span.value.indicator.neutral= "#{@blog_entry.comments.count} Comment#{@blog_entry.comments.count > 1 ? 's' : ''}"
+- if @blog_entry.published?
+  - status('Status', 'Published', :mode => :ok)
+  - status('On', @blog_entry.published_at, :mode => 'ok time')
+- else
+  - status('Status', 'Unpublished')
+
+- if @blog_entry.comments.count == 0
+  - status('Comments', "No comments")
+- else
+  - status('Comments', @blog_entry.comments.count)
+
+= record_name(@blog_entry.title, 'file-text')
 
 = content(:class => 'inset') do
   = column(6) do

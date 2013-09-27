@@ -1,4 +1,5 @@
-- sub_header('Blog', path(:blog))
-- prefixed_sub_header('Posts tagged with', @blog_tag.name)
+- breadcrumb('Blog', :blog)
+- breadcrumb('Tags', :blog_tags)
+- breadcrumb(@blog_tag.name)
 
 = render :partial => 'islay_blog/admin/blog_entries/table'
