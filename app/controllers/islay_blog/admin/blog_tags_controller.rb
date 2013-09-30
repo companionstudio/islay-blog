@@ -1,6 +1,6 @@
 class IslayBlog::Admin::BlogTagsController < IslayBlog::Admin::ApplicationController
   header 'Blog - Tags'
-  nav 'islay_blog/admin/blog/nav'
+  nav_scope :blog
 
   def index
     @blog_tags = BlogTag.summary.order('name')

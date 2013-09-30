@@ -1,7 +1,7 @@
 class IslayBlog::Admin::BlogEntriesController < IslayBlog::Admin::ApplicationController
   header 'Blog - Entries'
   resourceful :blog_entry
-  nav 'islay_blog/admin/blog/nav'
+  nav_scope :blog
 
   def index
     @blog_entries = BlogEntry.summary.filter(params[:filter]).page(params[:page]).sorted(params[:sort])

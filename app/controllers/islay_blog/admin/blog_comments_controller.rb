@@ -1,6 +1,6 @@
 class IslayBlog::Admin::BlogCommentsController < Islay::Admin::ApplicationController
   header 'Blog - Comments'
-  nav 'islay_blog/admin/blog/nav'
+  nav_scope :blog
   resourceful :blog_comment
 
   private

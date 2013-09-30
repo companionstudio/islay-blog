@@ -1,6 +1,6 @@
 class IslayBlog::Admin::BlogController < IslayBlog::Admin::ApplicationController
   header 'Blog'
-  nav 'nav'
+  nav_scope :blog
 
   def index
     @blog_entries = BlogEntry.summary.order('updated_at DESC').limit(8)
