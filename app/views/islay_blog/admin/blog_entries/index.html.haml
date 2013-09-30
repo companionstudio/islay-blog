@@ -2,9 +2,9 @@
 - breadcrumb('Entries', :blog_entries)
 
 - if params[:filter]
-  - sub_header("#{params[:filter].humanize} entries")
+  - breadcrumb("#{params[:filter].humanize} entries")
 - else
-  - sub_header("All entries")
+  - breadcrumb("All entries")
 
 - filter_nav(:blog_entries, 'All')
 - filter_nav(:blog_entries, 'Published', 'published')
