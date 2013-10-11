@@ -1,6 +1,8 @@
 = resource_form(@blog_entry) do |f|
   = record_name(@blog_entry.title, 'file-text', :when_blank => 'New Entry')
 
+  = form_errors(@blog_entry)
+
   = content do
     = f.fieldset(:class => 'primary') do
       = f.input(:title)
