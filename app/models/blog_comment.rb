@@ -2,6 +2,9 @@ class BlogComment < ActiveRecord::Base
   include Humanizer
   require_human_on :create
 
+  include PgSearch
+  multisearchable :against => [:name, :email]
+
   belongs_to :entry, :class_name => 'BlogEntry'
 
   attr_accessible(

@@ -6,6 +6,9 @@ class BlogEntry < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, :use => :slugged
 
+  include PgSearch
+  multisearchable :against => [:title, :body, :metadata]
+
   belongs_to  :author,    :class_name => 'User'
   has_many    :comments,  :class_name => 'BlogComment',   :order => 'created_at DESC'
   has_many    :taggings,  :class_name => 'BlogTagging', :foreign_key => 'blog_entry_id'
