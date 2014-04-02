@@ -94,5 +94,9 @@ class BlogEntry < ActiveRecord::Base
     end
   end
 
+  def has_tag?(tag)
+    !tags.select{|t|t.name.downcase == tag.downcase}.empty?
+  end
+
   check_for_extensions
 end
