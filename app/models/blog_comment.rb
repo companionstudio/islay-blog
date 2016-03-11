@@ -12,8 +12,6 @@ class BlogComment < ActiveRecord::Base
     :humanizer_question_id
   )
 
-  validations_from_schema
-
   # Validate email format
   validates :email, :format   => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => 'Please check your email address is correct'}
 

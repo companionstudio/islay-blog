@@ -10,19 +10,18 @@ class BlogEntry < ActiveRecord::Base
   multisearchable :against => [:title, :body, :metadata]
 
   belongs_to  :author,    :class_name => 'User'
-  has_many    :comments,  :class_name => 'BlogComment',   :order => 'created_at DESC'
+  has_many    :comments, -> {order('created_at DESC')},  :class_name => 'BlogComment'
   has_many    :taggings,  :class_name => 'BlogTagging', :foreign_key => 'blog_entry_id'
   has_many    :tags,      :class_name => 'BlogTag', :through => :taggings
 
   has_many    :blog_assets
-  has_many    :assets,     :through => :blog_assets, :order => 'position ASC'
-  has_many    :images,     :through => :blog_assets, :order => 'position ASC', :source => :asset, :class_name => 'ImageAsset'
-  has_many    :audio,      :through => :blog_assets, :order => 'position ASC', :source => :asset, :class_name => 'AudioAsset'
-  has_many    :videos,     :through => :blog_assets, :order => 'position ASC', :source => :asset, :class_name => 'VideoAsset'
-  has_many    :documents,  :through => :blog_assets, :order => 'position ASC', :source => :asset, :class_name => 'DocumentAsset'
+  has_many    :assets,    -> {order('position ASC')},  :through => :blog_assets
+  has_many    :images,    -> {order('position ASC')},  :through => :blog_assets, :source => :asset, :class_name => 'ImageAsset'
+  has_many    :audio,     -> {order('position ASC')},  :through => :blog_assets, :source => :asset, :class_name => 'AudioAsset'
+  has_many    :videos,    -> {order('position ASC')},  :through => :blog_assets, :source => :asset, :class_name => 'VideoAsset'
+  has_many    :documents, -> {order('position ASC')},  :through => :blog_assets, :source => :asset, :class_name => 'DocumentAsset'
 
   track_user_edits
-  validations_from_schema
   validates :tag_summary, :presence => true
   attr_accessible :title, :body, :published, :author_id, :asset_ids
 
