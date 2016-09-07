@@ -23,7 +23,7 @@ class BlogEntry < ActiveRecord::Base
 
   track_user_edits
   validates :tag_summary, :presence => true
-  attr_accessible :title, :body, :published, :author_id, :asset_ids
+  # attr_accessible :title, :body, :published, :author_id, :asset_ids
 
   # Creates a scope which summarises entries for display in a public listing
   # i.e. truncated body, comment count etc.
