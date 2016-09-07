@@ -4,7 +4,7 @@ class BlogEntry < ActiveRecord::Base
   include Islay::MetaData
 
   extend FriendlyId
-  friendly_id :title, :use => :slugged
+  friendly_id :title, :use => [:slugged, :finders]
 
   include PgSearch
   multisearchable :against => [:title, :body, :metadata]
@@ -76,7 +76,7 @@ class BlogEntry < ActiveRecord::Base
     case f
     when 'published'    then where(:published => true)
     when 'unpublished'  then where(:published => false)
-    else scoped
+    else all
     end
   end
 

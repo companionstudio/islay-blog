@@ -7,11 +7,6 @@ class BlogComment < ActiveRecord::Base
 
   belongs_to :entry, :class_name => 'BlogEntry'
 
-  attr_accessible(
-    :name, :email, :body, :blog_entry_id, :humanizer_answer,
-    :humanizer_question_id
-  )
-
   # Validate email format
   validates :email, :format   => {:with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :message => 'Please check your email address is correct'}
 
