@@ -9,7 +9,8 @@ class BlogComment < ActiveRecord::Base
 
   # Validate email format
   validates :email, :format   => {:with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :message => 'Please check your email address is correct'}
-
+  validations_from_schema
+  
   def self.summary
     select(%{
       blog_comments.*,
