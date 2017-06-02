@@ -16,7 +16,7 @@
 = record_name(@blog_entry.title, 'file-text')
 
 = content(:class => 'inset') do
-  = column(6) do
+  = column(8) do
     %h3 Body
     %div.body
       = render_markdown(@blog_entry.body, 4, false)
@@ -28,7 +28,7 @@
         %li.asset-preview
           %div.frame= image_tag(image.previews.url(:thumb_medium))
 
-  = column(6, :class => 'last') do
+  = column(4, :class => 'last') do
     %h3 Comments
     - if @blog_entry.comments.blank?
       %p.note No comments yet

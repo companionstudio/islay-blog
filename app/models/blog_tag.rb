@@ -3,7 +3,7 @@ class BlogTag < Tag
   has_many :entries,  :class_name => 'BlogEntry', :through => :taggings
 
   extend FriendlyId
-  friendly_id :name, :use => :slugged
+  friendly_id :name, :use => [:slugged, :finders]
 
   # Creates a scope with calulcated fields for summarising the tags e.g. with
   # count of entries etc.

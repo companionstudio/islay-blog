@@ -4,27 +4,28 @@ class BlogEntry < ActiveRecord::Base
   include Islay::MetaData
 
   extend FriendlyId
-  friendly_id :title, :use => :slugged
+  friendly_id :title, :use => [:slugged, :finders]
 
   include PgSearch
   multisearchable :against => [:title, :body, :metadata]
 
   belongs_to  :author,    :class_name => 'User'
-  has_many    :comments,  :class_name => 'BlogComment',   :order => 'created_at DESC'
+  has_many    :comments, -> {order('created_at DESC')},  :class_name => 'BlogComment'
   has_many    :taggings,  :class_name => 'BlogTagging', :foreign_key => 'blog_entry_id'
   has_many    :tags,      :class_name => 'BlogTag', :through => :taggings
 
   has_many    :blog_assets
-  has_many    :assets,     :through => :blog_assets, :order => 'position ASC'
-  has_many    :images,     :through => :blog_assets, :order => 'position ASC', :source => :asset, :class_name => 'ImageAsset'
-  has_many    :audio,      :through => :blog_assets, :order => 'position ASC', :source => :asset, :class_name => 'AudioAsset'
-  has_many    :videos,     :through => :blog_assets, :order => 'position ASC', :source => :asset, :class_name => 'VideoAsset'
-  has_many    :documents,  :through => :blog_assets, :order => 'position ASC', :source => :asset, :class_name => 'DocumentAsset'
+  has_many    :assets,    -> {order('position ASC')},  :through => :blog_assets
+  has_many    :images,    -> {order('position ASC')},  :through => :blog_assets, :source => :asset, :class_name => 'ImageAsset'
+  has_many    :audio,     -> {order('position ASC')},  :through => :blog_assets, :source => :asset, :class_name => 'AudioAsset'
+  has_many    :videos,    -> {order('position ASC')},  :through => :blog_assets, :source => :asset, :class_name => 'VideoAsset'
+  has_many    :documents, -> {order('position ASC')},  :through => :blog_assets, :source => :asset, :class_name => 'DocumentAsset'
 
   track_user_edits
   validations_from_schema
   validates :tag_summary, :presence => true
-  attr_accessible :title, :body, :published, :author_id, :asset_ids
+  
+  # attr_accessible :title, :body, :published, :author_id, :asset_ids
 
   # Creates a scope which summarises entries for display in a public listing
   # i.e. truncated body, comment count etc.
@@ -33,7 +34,7 @@ class BlogEntry < ActiveRecord::Base
   def self.public_summary
     select(%{
       blog_entries.id, blog_entries.slug, blog_entries.published, blog_entries.published_at,
-      blog_entries.title, blog_entries.updated_at, blog_entries.body,
+      blog_entries.title, blog_entries.updated_at, blog_entries.body, blog_entries.metadata,
       (SELECT name FROM users WHERE id = author_id) AS author_name,
       (SELECT COUNT(id) FROM blog_comments WHERE blog_entry_id = blog_entries.id) AS comments_count
     })
@@ -55,7 +56,7 @@ class BlogEntry < ActiveRecord::Base
   # @return ActiveRecord::Relation
   def self.summary
     select(%{
-      blog_entries.id, blog_entries.slug, blog_entries.published, blog_entries.title, blog_entries.created_at, blog_entries.updated_at,
+      blog_entries.id, blog_entries.slug, blog_entries.published, blog_entries.title, blog_entries.created_at, blog_entries.updated_at, blog_entries.metadata,
       (SELECT name FROM users WHERE id = author_id) AS author_name,
       (SELECT name FROM users WHERE id = updater_id) AS updater_name,
       (SELECT COUNT(id) FROM blog_comments WHERE blog_entry_id = blog_entries.id) AS comments_count,
@@ -77,7 +78,7 @@ class BlogEntry < ActiveRecord::Base
     case f
     when 'published'    then where(:published => true)
     when 'unpublished'  then where(:published => false)
-    else scoped
+    else all
     end
   end
 
@@ -96,6 +97,18 @@ class BlogEntry < ActiveRecord::Base
 
   def has_tag?(tag)
     !tags.select{|t|t.name.downcase == tag.downcase}.empty?
+  end
+
+  def tags_summary
+    tags.collect(&:name).join(', ')
+  end
+
+  def comments_count
+    comments.count
+  end
+
+  def updater_name
+    User.find(updater_id).name
   end
 
   check_for_extensions
