@@ -1,54 +1,75 @@
 - breadcrumb('Blog')
 
+= record_name('Blog', 'newspaper-o')
+
 = content(:class => 'inset') do
-  %h3 Tags
 
-  %ul#tag-cloud
-    - @blog_tags.each do |tag|
-      %li
-        = link_to(tag.name, path(tag))
-
-  = column(6) do
+  = column(8) do
     %h3 Latest Entries
 
     - if @blog_entries.empty?
       %p No Entries
     - else
-      %ul.latest-entries
-        - @blog_entries.each do |entry|
-          %li
-            %a{href: path(entry), class: "published-#{entry.published}"}
-              %h4
-                %strong= entry.title
-                By #{entry.author_name} / Updated
+      %table
+        %thead
+          %tr
+            %th.boolean Publish
+            %th Entry
+            %th 
+              %i.fa.fa-comment
+            %th.meta Updated
+
+        %tbody
+          - @blog_entries.each do |entry|
+            %tr
+              %td.boolean= boolean_indicator(entry.published?)
+              %td
+                %h3.name
+                  %a{href: path(entry)}= entry.title
+
+                .tags
+                  - unless entry.tags_summary.blank?
+                    - entry.tags_summary.split(', ').each do |tag|
+                      %span.tag= tag
+              %td
+                %span.indicator.neutral= entry.comments_count
+              %td.meta
                 %span.time= entry.updated_at
                 by #{entry.updater_name}
 
-            %p.tags
-            - unless entry.tags_summary.blank?
-              - entry.tags_summary.split(', ').each do |tag|
-                %span.tag= tag
 
-            %p.comments
-              %span.indicator.neutral= entry.comments_count
-              %span.key Comments
-
-  = column(6) do
-    %h3 Latest Comments
+  = column(4) do
+    %h3 
+      %i.fa.fa-comment
+      Latest Comments
     - if @comments.empty?
-      %p No Comments
+      %table
+        %tbody
+          %tr
+            %td No comments in the last 30 days.
     - else
-      %ul.latest-entries
-        - @comments.each do |comment|
-          %li
-            %a{href: path(:blog_entry, :id => comment.blog_entry_id)}
-              %h4
-                %strong
-                  = comment.name
-                  on
-                  = comment.blog_entry_title
-                Added on
-                %span.time= comment.updated_at
+      %table
+        %tbody
+          - @comments.each do |comment|
+            %tr
+              %td
+                %h4
+                  %a{href: path(:blog_entry, :id => comment.blog_entry_id)}
+                    %strong
+                      = comment.name
+                      on
+                      = comment.blog_entry_title
+                    Added on
+                    %span.time= comment.updated_at
+
+  = column(12) do
+  
+    %h3 Tags
+
+    %ul#tag-cloud
+      - @blog_tags.each do |tag|
+        %li
+          = link_to(tag.name, path(tag))
 
 
 

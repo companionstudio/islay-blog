@@ -13,4 +13,11 @@ class IslayBlog::Admin::BlogEntriesController < IslayBlog::Admin::ApplicationCon
     @users = User.order('name')
     @assets = Asset.order('name')
   end
+
+  def permitted_params
+    binding.pry
+    params.permit(:blog_entry => [
+      :title, :body, :tag_summary, :author_name, :notes, :season, :feature, :published, :author_id, :asset_ids
+    ])
+  end
 end

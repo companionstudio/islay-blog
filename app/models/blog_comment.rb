@@ -17,4 +17,8 @@ class BlogComment < ActiveRecord::Base
       (SELECT title FROM blog_entries WHERE id = blog_entry_id) AS blog_entry_title
     })
   end
+
+  def self.recent
+    where('created_at > ?', 30.days.ago)
+  end
 end
