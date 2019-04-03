@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency 'islay',         '~> 2.0.0'
+  s.add_dependency 'islay',         '~> 2.1.0'
   s.add_dependency 'rdiscount',     '~> 1.6.8'
   s.add_dependency 'htmlentities',  '~> 4.3.1'
   s.add_dependency 'humanizer',     '~> 2.4.4'
